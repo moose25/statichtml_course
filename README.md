@@ -1,0 +1,110 @@
+# Static HTML Course - Static Site Generator
+
+A complete static site generator built in Python that converts Markdown files into HTML pages with proper templating and styling.
+
+## Features
+
+- **Markdown to HTML Conversion**: Full markdown parsing with support for headers, paragraphs, lists, code blocks, quotes, and inline formatting (bold, italic, code, links, images)
+- **Recursive Page Generation**: Automatically processes entire content directories while preserving folder structure
+- **Template System**: Uses HTML templates with placeholder replacement for consistent page layouts
+- **Static File Copying**: Copies CSS, images, and other static assets to the output directory
+- **Comprehensive Testing**: 160+ unit tests covering all functionality
+
+## Project Structure
+
+```
+├── src/                    # Python source code
+│   ├── main.py            # Main entry point
+│   ├── textnode.py        # Text node representation
+│   ├── htmlnode.py        # HTML node representation
+│   ├── split_nodes.py     # Text splitting utilities
+│   ├── extract_markdown.py # Markdown element extraction
+│   ├── markdown_blocks.py # Block-level markdown parsing
+│   ├── text_to_html.py    # Text to HTML conversion
+│   ├── extract_title.py   # Title extraction from markdown
+│   ├── generate_page.py   # Page generation functions
+│   ├── copy_static.py     # Static file copying
+│   └── test_*.py          # Unit tests
+├── content/               # Markdown content files
+│   ├── index.md          # Homepage content
+│   ├── blog/             # Blog posts
+│   └── contact/          # Contact page
+├── static/               # Static assets (CSS, images)
+├── template.html         # HTML template
+├── public/               # Generated output (created during build)
+└── README.md            # This file
+```
+
+## Usage
+
+### Generate the Site
+
+Run the main script to generate the complete static site:
+
+```bash
+python src/main.py
+```
+
+Or use the provided shell script:
+
+```bash
+./main.sh
+```
+
+This will:
+1. Copy all static files from `static/` to `public/`
+2. Process all markdown files in `content/` recursively
+3. Generate HTML pages using `template.html`
+4. Preserve the directory structure in the output
+
+### Run Tests
+
+Run the comprehensive test suite:
+
+```bash
+python -m unittest discover -s src -p "test_*.py"
+```
+
+Or use the test script:
+
+```bash
+./test.sh
+```
+
+## How It Works
+
+1. **Markdown Parsing**: Converts markdown text into structured text nodes
+2. **Block Processing**: Identifies and processes different markdown block types (headers, paragraphs, lists, etc.)
+3. **HTML Generation**: Converts parsed markdown into HTML nodes
+4. **Template Processing**: Injects generated content into HTML templates
+5. **File Generation**: Writes HTML files with proper directory structure
+
+## Key Components
+
+- **TextNode**: Represents text with formatting information
+- **HTMLNode**: Represents HTML elements and attributes
+- **Block Classification**: Identifies markdown block types (header, paragraph, list, etc.)
+- **Recursive Generation**: Processes entire content directories automatically
+- **Title Extraction**: Automatically extracts page titles from H1 headers
+
+## Development
+
+The project follows test-driven development practices with comprehensive unit testing for all functionality. Each module has corresponding test files that validate the implementation.
+
+## Generated Output
+
+The generator creates a complete static website in the `public/` directory with:
+- All markdown files converted to HTML
+- Proper navigation structure
+- CSS styling applied
+- Images and assets copied
+- SEO-friendly page titles
+
+## Example Content
+
+The project includes sample content demonstrating:
+- Homepage with introduction
+- Blog posts with different topics
+- Contact page
+- Nested directory structures
+- Various markdown formatting examples
