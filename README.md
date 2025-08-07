@@ -7,7 +7,9 @@ A complete static site generator built in Python that converts Markdown files in
 - **Markdown to HTML Conversion**: Full markdown parsing with support for headers, paragraphs, lists, code blocks, quotes, and inline formatting (bold, italic, code, links, images)
 - **Recursive Page Generation**: Automatically processes entire content directories while preserving folder structure
 - **Template System**: Uses HTML templates with placeholder replacement for consistent page layouts
+- **Configurable Base Path**: Support for custom base paths for deployment to subdirectories (e.g., GitHub Pages)
 - **Static File Copying**: Copies CSS, images, and other static assets to the output directory
+- **GitHub Pages Ready**: Built-in support for GitHub Pages deployment with proper path configuration
 - **Comprehensive Testing**: 160+ unit tests covering all functionality
 
 ## Project Structure
@@ -31,7 +33,7 @@ A complete static site generator built in Python that converts Markdown files in
 │   └── contact/          # Contact page
 ├── static/               # Static assets (CSS, images)
 ├── template.html         # HTML template
-├── public/               # Generated output (created during build)
+├── docs/                 # Generated output (created during build)
 └── README.md            # This file
 ```
 
@@ -39,7 +41,8 @@ A complete static site generator built in Python that converts Markdown files in
 
 ### Generate the Site
 
-Run the main script to generate the complete static site:
+#### For Local Development
+Run the main script to generate the site with default "/" base path:
 
 ```bash
 python src/main.py
@@ -51,10 +54,24 @@ Or use the provided shell script:
 ./main.sh
 ```
 
+#### For Production (GitHub Pages)
+Run the build script to generate the site with the correct base path for GitHub Pages:
+
+```bash
+./build.sh
+```
+
+#### Custom Base Path
+You can specify a custom base path as a command line argument:
+
+```bash
+python src/main.py "/my-custom-path/"
+```
+
 This will:
-1. Copy all static files from `static/` to `public/`
+1. Copy all static files from `static/` to `docs/`
 2. Process all markdown files in `content/` recursively
-3. Generate HTML pages using `template.html`
+3. Generate HTML pages using `template.html` with the specified base path
 4. Preserve the directory structure in the output
 
 ### Run Tests
@@ -87,13 +104,23 @@ Or use the test script:
 - **Recursive Generation**: Processes entire content directories automatically
 - **Title Extraction**: Automatically extracts page titles from H1 headers
 
+## GitHub Pages Deployment
+
+This project is configured for easy deployment to GitHub Pages:
+
+1. **Build for Production**: Run `./build.sh` to generate the site with the correct base path
+2. **Enable GitHub Pages**: Go to your repository settings → Pages → Set source to "Deploy from a branch" → Select "main" branch and "/docs" folder
+3. **Access Your Site**: Your site will be available at `https://USERNAME.github.io/REPO_NAME/`
+
+The build script automatically configures all URLs to work with GitHub Pages' subdirectory structure.
+
 ## Development
 
 The project follows test-driven development practices with comprehensive unit testing for all functionality. Each module has corresponding test files that validate the implementation.
 
 ## Generated Output
 
-The generator creates a complete static website in the `public/` directory with:
+The generator creates a complete static website in the `docs/` directory with:
 - All markdown files converted to HTML
 - Proper navigation structure
 - CSS styling applied
