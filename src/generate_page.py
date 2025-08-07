@@ -36,8 +36,10 @@ def generate_page(from_path, template_path, dest_path, basepath="/"):
     final_html = final_html.replace("{{ Content }}", html_content)
     
     # Replace base path URLs
-    final_html = final_html.replace('href="/', f'href="{basepath}')
-    final_html = final_html.replace('src="/', f'src="{basepath}')
+    # Remove trailing slash from basepath if it exists to avoid double slashes
+    clean_basepath = basepath.rstrip('/')
+    final_html = final_html.replace('href="/', f'href="{clean_basepath}/')
+    final_html = final_html.replace('src="/', f'src="{clean_basepath}/')
     
     # Create destination directory if it doesn't exist
     dest_dir = os.path.dirname(dest_path)
